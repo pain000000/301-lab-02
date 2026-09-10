@@ -90,7 +90,7 @@ fun CityListScreen(
 
             // Filler Button for now
             Button(
-                {
+                onClick = {
                     if (newCityName in cities) {
                         onDelCity(newCityName)
                         newCityName = ""
