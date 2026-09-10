@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -75,6 +76,7 @@ fun CityListScreen(
         }
 
         // The row below the Outlined Text Field
+        // searched up how to center rows in Kotlin
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
             Button(
                 onClick = {
@@ -102,7 +104,7 @@ fun CityListScreen(
         }
         LazyColumn(modifier = modifier.fillMaxSize()) {
             items(cities) {
-                    city -> CityRow(city = city)
+                    city -> CityRow(city = city, onCityClick = { newCityName = city })
             }
         }
     }
@@ -110,13 +112,15 @@ fun CityListScreen(
 }
 
 @Composable
-fun CityRow(city: String) {
+fun CityRow(city: String, onCityClick: () -> Unit) {
     Text(
         text = city,
         fontSize = 28.sp,
         modifier = Modifier
             .fillMaxWidth()
+            .clickable { onCityClick() }
             .padding(horizontal = 18.dp, vertical = 14.dp)
+
 
     )
 }
@@ -142,10 +146,4 @@ class CityRepository {
     }
 
 }
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+
